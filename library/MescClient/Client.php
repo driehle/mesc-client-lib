@@ -1,13 +1,11 @@
 <?php
 
-use MescClient\Proxy\DnsZone;
 namespace MescClient;
-
-use MescClient\Proxy\Authentication;
 
 use Zend\Http\Client as HttpClient;
 use Zend\XmlRpc\Client as XmlRpcClient;
-use MescClient\Proxy;
+use MescClient\Proxy\Authentication;
+use MescClient\Proxy\DnsZone;
 
 class Client extends XmlRpcClient
 {
@@ -48,12 +46,12 @@ class Client extends XmlRpcClient
 	 */
     public function call ($method, $params = array(), $noToken = false)
     {
-    	if (!$noToken) {
+    	if (!$noToken && substr($method, 0, 7) != 'system.') {
 	    	// add token as first parameter
-	        $params = array_unshift($params, $this->getToken());
+	        array_unshift($params, $this->getToken());
     	}
         
-        parent::call($method, $params);
+        return parent::call($method, $params);
     }
     
     /**

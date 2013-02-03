@@ -2,8 +2,16 @@
 
 namespace MescClient\Proxy;
 
-class DnsZone extends Zend\XmlRpc\Client\ServerProxy
+use MescClient\Client;
+use Zend\XmlRpc\Client\ServerProxy;
+
+class DnsZone extends ServerProxy
 {
+    /**
+     * @var Client
+     */
+    private $client = null;
+    
 	/**
 	 * Namespace of this proxy
 	 * @var string
@@ -13,18 +21,19 @@ class DnsZone extends Zend\XmlRpc\Client\ServerProxy
 	/**
 	 * Class constructor
 	 *
-	 * @param \Zend\XmlRpc\Client $client
+	 * @param Client $client
 	 */
-	public function __construct(XMLRPCClient $client)
+	public function __construct(Client $client)
 	{
+		$this->client = $client;
 		parent::__construct($client, self::PROXY_NAMESPACE);
 	}
 	
 	/**
 	 * List all current DNS zones
 	 */
-	public function listZones()
+	public function listAll()
 	{
-		return $this->_client->call(self::PROXY_NAMESPACE . '.listZones');
+		return $this->client->call(self::PROXY_NAMESPACE . '.listAll');
 	}
 }

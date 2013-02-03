@@ -2,8 +2,17 @@
 
 namespace MescClient\Proxy;
 
-class Authentication extends Zend\XmlRpc\Client\ServerProxy
+use MescClient\Client;
+use Zend\XmlRpc\Client\ServerProxy;
+
+class Authentication extends ServerProxy
 {
+	/**
+	 * Namespace of this proxy
+	 * @var string
+	 */
+	const PROXY_NAMESPACE = 'dnszone';
+    
 	/**
 	 * Namespace of this proxy
 	 * @var string
@@ -13,10 +22,11 @@ class Authentication extends Zend\XmlRpc\Client\ServerProxy
 	/**
 	 * Class constructor
 	 *
-	 * @param \Zend\XmlRpc\Client $client
+	 * @param Client $client
 	 */
-	public function __construct(XMLRPCClient $client)
+	public function __construct(Client $client)
 	{
+		$this->client = $client;
 		parent::__construct($client, self::PROXY_NAMESPACE);
 	}
 	
@@ -26,6 +36,6 @@ class Authentication extends Zend\XmlRpc\Client\ServerProxy
 	 */
 	public function validate($token)
 	{
-		return $this->_client->call(self::PROXY_NAMESPACE . '.validate', array($token), true);
+		return $this->client->call(self::PROXY_NAMESPACE . '.validate', array($token), true);
 	}
 }
