@@ -1,0 +1,32 @@
+{
+	"name": "mesc/mesc-client-lib",
+	"description": "Library for client access to the MESC API",
+	"license": "CC0-1.0",
+	"author": [
+		{
+			"name": "Dennis Riehle",
+			"homepage": "https://github.com/driehle/mesc-client-lib",
+			"role": "Developer"
+		}
+	],
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://packages.zendframework.com/"
+		}
+	],
+	"require": {
+		"zendframework/zend-http": "2.1.*",
+		"zendframework/zend-xmlrpc": "2.1.*"
+	},
+	"autoload": {
+		"psr-0": {
+			"MescClient\\": "library/"
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.1.x-dev"
+		}
+	}
+}
